@@ -20,7 +20,7 @@ chokidar.watch('/data', { ignoreInitial: true }).on('add', pathToFile => {
       process.env.REMOVE_AFTER_UPLOAD.toLocaleLowerCase === "true") {
       fs.unlink(pathToFile)
     }
-  }).catch(e) {
+  }).catch(e => {
      console.log('Unable to upload file =>', e)
-  }
+  })
 })
