@@ -4,10 +4,11 @@ const chokidar = require('chokidar')
 const fs = require('fs')
 const METADATA = process.env.METADATA || { 'Content-Type': 'audio/x-wav' }
 const BUCKET = process.env.BUCKET || 'default'
+const WATCH_OPTIONS = { ignoreInitial: true, awaitWriteFinish: { stabilityThreshold: 1000, pollInterval: 100} }
 
 console.log(`Uploader helper. Watching /data volume`)
 
-chokidar.watch('/data', { ignoreInitial: true }).on('add', pathToFile => {
+chokidar.watch('/data', WATCH_OPTIONS).on('add', pathToFile => {
   console.log(`File ${pathToFile} has been added. Pushing to bucket '${BUCKET}'`)
   const storage = new Storage()
 
