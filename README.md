@@ -1,10 +1,10 @@
 # Uploader Helper
 
-> Watches for mew files on a volume and pushes those files to the filesserver
+> Watches for new files on a volume and pushes those files to the filesserver
 
 ![publish to docker](https://github.com/fonoster/uploaderhelper/workflows/publish%20to%20docker%20hub/badge.svg)
 
-Watches for mew files on a volume and pushes those files to the filesserver.
+Watches for new files on a volume and pushes those files to the filesserver.
 
 ## Available Versions
 
