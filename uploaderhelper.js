@@ -11,18 +11,16 @@ chokidar.watch('/data', { ignoreInitial: true }).on('add', pathToFile => {
   console.log(`File ${pathToFile} has been added. Pushing to bucket '${BUCKET}'`)
   const storage = new Storage()
 
-  try {
-    storage.uploadObjectSync({
-      filename: pathToFile,
-      bucket: BUCKET,
-      metadata: METADATA
-    })
-  } catch(e) {
-    console.log('Unable to upload file =>', e)
-  }
-
-  if(process.env.REMOVE_AFTER_UPLOAD &&
-    process.env.REMOVE_AFTER_UPLOAD.toLocaleLowerCase === "true") {
-    fs.unlink(pathToFile)
+  storage.uploadObject({
+    filename: pathToFile,
+    bucket: BUCKET,
+    metadata: METADATA
+  }).then(result => {
+    if(process.env.REMOVE_AFTER_UPLOAD &&
+      process.env.REMOVE_AFTER_UPLOAD.toLocaleLowerCase === "true") {
+      fs.unlink(pathToFile)
+    }
+  }).catch(e) {
+     console.log('Unable to upload file =>', e)
   }
 })
