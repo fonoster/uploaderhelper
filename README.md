@@ -43,8 +43,6 @@ Environment variables are used in the entry point script to render configuration
 - `METADATA` - Metadata for uploaded object. Defaults to `{ 'Content-Type': 'audio/x-wav' }`
 - `REMOVE_AFTER_UPLOAD` - Determines action after files has been uploaded. Defaults to `false`
 
-> The extension to test the AGI endpoint is 1002. Using ENABLE_TEST_ACCOUNT is not recommended in production.
-
 ## Volumes
 
 - `/data` - Volume used by the image to monitoring new files.
