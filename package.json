@@ -1,0 +1,31 @@
+{
+  "name": "uploaderhelper",
+  "version": "0.0.1",
+  "description": "Watches a volume for any new files, and uploads those items to the corresponding bucket",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fonoster/uploaderhelper"
+  },
+  "keywords": [
+    "filesystem",
+    "uploader"
+  ],
+  "author": "Pedro Sanders",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fonoster/uploaderhelper/issues"
+  },
+  "homepage": "https://github.com/fonoster/uploaderhelper",
+  "main": "uploaderhelper.js",
+  "bin": {
+    "run-uploaderhelper": "uploaderhelper.js"
+  },
+  "dependencies": {
+    "@fonos/storage": "0.0.23",
+    "chokidar": "^3.4.1"
+  },
+  "preferGlobal": true,
+  "engines": {
+    "node": ">= 6.0.0"
+  }
+}
