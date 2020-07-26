@@ -4,13 +4,14 @@ const chokidar = require('chokidar')
 const fs = require('fs')
 const METADATA = process.env.METADATA || { 'Content-Type': 'audio/x-wav' }
 const BUCKET = process.env.BUCKET || 'default'
-const WATCH_OPTIONS = { 
-  ignoreInitial: true, 
-  ignored: 'bucket-*.wav', 
-  awaitWriteFinish: { 
-    stabilityThreshold: 2000, 
-    pollInterval: 100
-  } 
+const WATCH_OPTIONS = {
+  usePolling: true,
+  ignoreInitial: true,
+  ignored: '/data/bucket-*.wav',
+  awaitWriteFinish: {
+    stabilityThreshold: 2000,
+    pollInterval: 50
+  }
 }
 
 console.log(`Uploader helper. Watching /data volume`)
