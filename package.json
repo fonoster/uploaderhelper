@@ -1,6 +1,6 @@
 {
   "name": "uploaderhelper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Watches a volume for any new files, and uploads those items to the corresponding bucket",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
     "run-uploaderhelper": "uploaderhelper.js"
   },
   "dependencies": {
-    "@fonos/storage": "0.0.23",
+    "@fonos/storage": "0.0.24",
     "chokidar": "^3.4.1"
   },
   "preferGlobal": true,
