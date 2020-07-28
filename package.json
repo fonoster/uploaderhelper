@@ -21,7 +21,7 @@
     "run-uploaderhelper": "uploaderhelper.js"
   },
   "dependencies": {
-    "@fonos/storage": "0.0.24",
+    "@fonos/storage": "0.0.26",
     "chokidar": "^3.4.1"
   },
   "preferGlobal": true,
