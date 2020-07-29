@@ -11,7 +11,7 @@ const BUCKET = process.env.BUCKET || 'default'
 
 if (!process.env.EVENTS_BROKERS) {
   logger.log('error', 'uploaderhelper [environment variable EVENTS_BROKERS is undefined]')
-  exit(1)
+  process.exit()
 }
 
 const BROKERS = process.env.EVENTS_BROKERS.split(',')
