@@ -1,7 +1,7 @@
 {
   "name": "uploaderhelper",
   "version": "0.0.2",
-  "description": "Watches a volume for any new files, and uploads those items to the corresponding bucket",
+  "description": "Watches for RECORDING_CREATED events and pushes recording to files server",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fonoster/uploaderhelper"
@@ -21,8 +21,9 @@
     "run-uploaderhelper": "uploaderhelper.js"
   },
   "dependencies": {
-    "@fonos/storage": "0.0.26",
-    "chokidar": "^3.4.1"
+    "@fonos/storage": "0.0.29",
+    "@fonos/logger": "0.0.29",
+    "@fonos/events": "0.0.29"
   },
   "preferGlobal": true,
   "engines": {

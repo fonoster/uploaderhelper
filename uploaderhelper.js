@@ -1,33 +1,38 @@
 #!/usr/bin/env node
 const Storage = require('@fonos/storage').default
-const chokidar = require('chokidar')
+const EventsRecvr = require('@fonos/events').EventsRecvr
+const logger = require('@fonos/logger').default
 const fs = require('fs')
 const METADATA = process.env.METADATA || { 'Content-Type': 'audio/x-wav' }
 const BUCKET = process.env.BUCKET || 'default'
-const WATCH_OPTIONS = {
-  usePolling: true,
-  ignoreInitial: true,
-  ignored: '/data/bucket-*.wav',
-  awaitWriteFinish: {
-    stabilityThreshold: 2000,
-    pollInterval: 50
-  }
+
+if (!process.env.EVENTS_BROKERS) {
+  logger.log('error', 'uploaderhelper [environment variable EVENTS_BROKERS is undefined]')
+  exit(1)
 }
 
-console.log(`Uploader helper. Watching /data volume`)
+const BROKERS = process.env.EVENTS_BROKERS.split(',')
+const er = new EventsRecvr(BROKERS, process.env.EVENTS_QUEUE)
+er.connect()
 
-chokidar.watch('/data', WATCH_OPTIONS).on('add', pathToFile => {
-  console.log(`File ${pathToFile} has been added. Pushing to bucket '${BUCKET}'`)
-  const storage = new Storage()
+er.watchEvents(content => {
+  const event = JSON.parse(content.toString())
 
-  storage.uploadObject({
-    filename: pathToFile,
-    bucket: BUCKET,
-    metadata: METADATA
-  }).then(result => {
-    if(process.env.REMOVE_AFTER_UPLOAD &&
-      process.env.REMOVE_AFTER_UPLOAD.toLocaleLowerCase === "true") {
-      fs.unlink(pathToFile)
-    }
-  }).catch(e => console.log('Unable to upload file =>', e))
+  if (event.name === 'RECORDING_CREATED') {
+    const pathToFile = event.data.pathToFile
+    logger.log('debug', `File ${pathToFile} has been added. Pushing to bucket '${BUCKET}'`)
+    const storage = new Storage()
+
+    storage.uploadObject({
+      filename: pathToFile,
+      bucket: BUCKET,
+      metadata: METADATA
+    }).then(result => {
+      if(process.env.REMOVE_AFTER_UPLOAD &&
+        process.env.REMOVE_AFTER_UPLOAD.toLocaleLowerCase === "true") {
+        fs.unlink(pathToFile)
+      }
+    }).catch(e => console.log('Unable to upload file =>', e))
+  }
+
 })

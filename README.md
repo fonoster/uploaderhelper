@@ -1,10 +1,8 @@
 # Uploader Helper
 
-> Watches for new files on a volume and pushes those files to the filesserver
-
 ![publish to docker](https://github.com/fonoster/uploaderhelper/workflows/publish%20to%20docker%20hub/badge.svg)
 
-Watches for new files on a volume and pushes those files to the filesserver.
+Watches for `RECORDING_CREATED` events and pushes recording to files server.
 
 ## Available Versions
 
@@ -45,7 +43,7 @@ Environment variables are used in the entry point script to render configuration
 
 ## Volumes
 
-- `/data` - Volume used by the image to monitoring new files.
+- `/data` - Volume with shared data, including applications, recordings, and more.
 
 ## Contributing
 
