@@ -2,7 +2,7 @@
 
 ![publish to docker](https://github.com/fonoster/uploaderhelper/workflows/publish%20to%20docker%20hub/badge.svg)
 
-Watches for `RECORDING_CREATED` events and pushes recording to files server.
+Watches for `RECORDING_CREATED` events and pushes recordings to files server.
 
 ## Available Versions
 
