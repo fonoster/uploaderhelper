@@ -5,7 +5,7 @@ const logger = require('@fonos/logger').default
 const fs = require('fs')
 const { join } = require('path')
 
-const BASE_DIR = '/data/recordings'
+const BASE_DIR = '/data'
 const METADATA = process.env.METADATA || { 'Content-Type': 'audio/x-wav' }
 const BUCKET = process.env.BUCKET || 'default'
 
