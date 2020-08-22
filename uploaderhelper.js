@@ -15,27 +15,23 @@ if (!process.env.EVENTS_BROKERS) {
 }
 
 const BROKERS = process.env.EVENTS_BROKERS.split(',')
-const er = new EventsRecvr(BROKERS, process.env.EVENTS_QUEUE)
+const er = new EventsRecvr(BROKERS, 'RECORDING_CREATED')
 er.connect()
 
 er.watchEvents(content => {
   const event = JSON.parse(content.toString())
+  const pathToFile = join(BASE_DIR, event.data.filename)
+  logger.log('debug', `File ${pathToFile} has been added. Pushing to bucket '${BUCKET}'`)
+  const storage = new Storage()
 
-  if (event.name === 'RECORDING_CREATED') {
-    const pathToFile = join(BASE_DIR, event.data.filename)
-    logger.log('debug', `File ${pathToFile} has been added. Pushing to bucket '${BUCKET}'`)
-    const storage = new Storage()
-
-    storage.uploadObject({
-      filename: pathToFile,
-      bucket: BUCKET,
-      metadata: METADATA
-    }).then(result => {
-      if(process.env.REMOVE_AFTER_UPLOAD &&
-        process.env.REMOVE_AFTER_UPLOAD.toLocaleLowerCase === "true") {
-        fs.unlink(pathToFile)
-      }
-    }).catch(e => console.log('Unable to upload file =>', e))
-  }
-
+  storage.uploadObject({
+    filename: pathToFile,
+    bucket: BUCKET,
+    metadata: METADATA
+  }).then(result => {
+    if(process.env.REMOVE_AFTER_UPLOAD &&
+      process.env.REMOVE_AFTER_UPLOAD.toLocaleLowerCase === "true") {
+      fs.unlink(pathToFile)
+    }
+  }).catch(e => console.log('Unable to upload file =>', e))
 })
