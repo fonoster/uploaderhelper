@@ -1,6 +1,6 @@
 {
   "name": "uploaderhelper",
-  "version": "0.0.40",
+  "version": "#{FONOS_VERSION}",
   "description": "Watches for RECORDING_CREATED events and pushes recording to files server",
   "repository": {
     "type": "git",
@@ -21,9 +21,9 @@
     "run-uploaderhelper": "uploaderhelper.js"
   },
   "dependencies": {
-    "@fonos/storage": "0.0.40",
-    "@fonos/logger": "0.0.40",
-    "@fonos/events": "0.0.40"
+    "@fonos/storage": "^#{FONOS_VERSION}",
+    "@fonos/logger": "^#{FONOS_VERSION}",
+    "@fonos/events": "^#{FONOS_VERSION}"
   },
   "preferGlobal": true,
   "engines": {
